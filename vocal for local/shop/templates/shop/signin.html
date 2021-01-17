@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project-J</title>
+    
+
+    
+    <style type="text/css">
+        
+        @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+@import "https://fonts.googleapis.com/css?family=Open+Sans";
+* {
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+  font-family:"Open Sans",sans-serif;
+}
+body {
+  background:#ddd;
+}
+.form {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:480px;
+  height:400px;
+  background:#fdfdfd;
+}
+.form .head {
+  width:100%;
+  height:55px;
+  display:flex;
+}
+.form .head > div {
+  width:50%;
+  height:100%;
+  text-align:center;
+  line-height:55px;
+  cursor:pointer;
+  background:transparent;
+  text-transform:uppercase;
+  font-size:15px;
+}
+.form .head.signup > div:nth-child(1),.form .head > div:nth-child(2) {
+  background:#eee;
+}
+.form .head.signup > div:nth-child(2) {
+  background:transparent !important;
+}
+
+
+.form .body {
+  position:absolute;
+  overflow:hidden;
+  width:100%;
+  height:100%;
+}
+.form .body > div {
+  position:absolute;
+  width:100%;
+  height:100%;
+  transition:all 300ms ease-in-out;
+}
+.form .body > div.login {
+  left:0%;
+}
+.form .body > div.signup {
+  left:100%;
+}
+.form .body.active > div.login {
+  left:-100%;
+}
+.form .body.active > div.signup {
+  left:0%;
+}
+.form .body .form-row {
+  border-top:1px solid #ccc;
+}
+.form .body .form-row label {
+  display:block;
+  padding:12px 10px 0px;
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.form .body .form-row input {
+  width:100%;
+  border:none;
+  outline:none;
+  height:32px;
+  text-indent:10px;
+  font-size:14px;
+}
+.form .body .form-row button {
+  width:100%;
+  border:none;
+  outline:none;
+  height:45px;
+  background:#3399ff;
+  text-transform:uppercase;
+  color:#fcfcfc;
+  font-size:16px;
+  cursor:pointer;
+}
+.form .body .signup .form-row button {
+  background:#0f2d41;
+}
+.form .body .rem-row {
+  padding:10px;
+  border-top:1px solid #ccc;
+  line-height:30px;
+}
+.form .body .rem-row > input {
+  width:17px;
+  height:17px;
+  border:1px solid #999;
+  border-radius:0px;
+  position:relative;
+  top:3px;
+}
+.form .body .rem-row > label {
+  font-size:15px;
+  margin-left:5px;
+  cursor:pointer;
+}
+.form .body .row {
+  text-align:center;
+  padding:8px 0px;
+}
+.form .body .row span {
+  font-size:14px;
+  position:relative;
+  color:#222;
+  top:5px;
+  font-weight:600;
+}
+.form .body .footer {
+  position:absolute;
+  bottom:50px;
+  width:100%;
+  border-top:1px solid #ccc;
+}
+.form .body .footer > div.social-form {
+  float:left;
+  padding-left:50px;
+  width:100%;
+  height:40px;
+  line-height:40px;
+  text-indent:2%;
+  color:#fcfcfc;
+  position:relative;
+  font-size:14px;
+  cursor:pointer;
+}
+.form .body .footer i {
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:0px;
+  line-height:40px;
+  background:rgba(0,0,0,0.3);
+  text-align:center;
+}
+.form .body .footer .fb {
+  background:#3b5998;
+}
+.form .body .footer .google {
+  background:tomato;
+}
+    </style>
+</head>
+
+<body>
+  <div class="form">
+  <div class="head" class="signup">
+    <div onclick="changeTab(this)" data-tab="login" class="login-tab">Buyer Login</div>
+    <div onclick="changeTab(this)" data-tab="signup" class="signup-tab">Seller Login</div>
+  </div>
+  <div class="body" id="form-body">
+    <div class="login">
+      <div class="form-row">
+        <label for="">Email</label>
+        <br>
+
+        <input type="text" placeholder="Email">
+      </div>
+      <div class="form-row">
+        <label for="">Password</label>
+        <br>
+
+        <input type="password" placeholder="Password">
+      </div>
+      <div class="rem-row">
+        <input type="checkbox" id="rem">
+        <label for="rem">Remember me</label>
+      </div>
+      <div align="center">
+        <p>Don't have an account? <a href="#">create one</a></p>
+      </div>
+      
+      <br>
+      <br>
+      <br>
+
+      <div class="form-row">
+        <button onclick="visithome()">Login</button>
+      </div>
+    </div>
+
+
+    <div class="signup">
+      <div class="form-row">
+        <label for="">Email</label>
+        <br>
+        <input type="text" placeholder="Email">
+      </div>
+      <div class="form-row">
+        <label for="">Password</label>
+        <br>
+
+        <input type="password" placeholder="Password">
+      </div>
+      <div class="rem-row">
+        <input type="checkbox" id="rem">
+        <label for="rem">Remember me</label>
+      </div>
+      <div align="center">
+        <p>Don't have an account? <a href="#">create one</a></p>
+      </div>
+      <br>
+      <br>
+      <br>
+
+      <div class="form-row">
+        <button onclick="visityourshop()">Login</button>
+      </div>      
+    </div>
+  </div>
+</div>
+  
+<script>
+  function changeTab(ref){
+  try {
+  if(ref.getAttribute("data-tab") == "login"){
+    document.getElementById("form-body").classList.remove('active');
+    ref.parentNode.classList.remove('signup');
+  } else {
+    document.getElementById("form-body").classList.add('active');
+    ref.parentNode.classList.add('signup');
+  }
+  } catch(msg){
+    console.log(msg);
+  }
+}
+
+  function visithome()
+  {
+    window.location = "/shop";
+  }
+  
+  function visityourshop()
+  {
+    window.location = "/shop/sellerhome/";
+  }
+</script>
+</body>
+</html>

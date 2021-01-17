@@ -1,0 +1,334 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<head>
+  <!-- <script>window.location = "/shop";</script> -->
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Welcome to Vocal for Local Shop </title>
+  <style type="text/css">
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    #add {
+      margin: 0.5rem;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 550px 550px 550px;
+      grid-row-gap: 20px;
+      grid-column-gap: 0.002px;
+      padding: 10px;
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+    .open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 520px;
+  padding: 10px;
+  background-color: white;
+  overflow: scroll;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: grey;
+
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/shop">Vocal for Local Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/shop">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/shop/about">About Us</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/shop/tracker">Tracker</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/shop/contact">Contact Us</a>
+        </li>
+
+
+
+      </ul>
+      <form method='post' action='/shop/searchbypincode/' class="form-inline my-2 my-lg-0">{% csrf_token %}
+        <input class="form-control mr-sm-2" type="text" aria-label="Search" name="search"
+          id="search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Pincode</button>
+      </form>
+      <a class="nav-link" href="#"><button type="button" class="btn btn-primary">Sign Out</button></a>
+
+    </div>
+  </nav>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Full Name of owner</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Name of the Shop</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Address of Shop</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Postal Code (PIN)</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Contact Number</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">License Number</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Government ID Number</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload Image</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+            onclick="popup()">Register Your Shop</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jumbotron">
+    <img src="/media/shop/images/newbanner.jpeg">
+  </div>
+
+  <div align="center" id="register">
+    <p><b>Are you a local vendor, seller or creator? Want to sell your product during this pandemic and lockdown but
+        don't have access to a digital platform?
+        <br>Don't worry! We have a place for you.</b></p>
+    <button style=" height:3rem" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Register here!
+    </button>
+    <p><b>Already have a registered shop? Visit your shop.</b></p>
+    <button style=" height:3rem" type="button" class="btn btn-primary" onclick="visityourshop()">
+      Visit my shop
+    </button>
+  </div>
+
+  <br>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3" id="add">
+    <div class="grid-container">
+      {% for i in shop %}
+      <div class="col md-4">
+        <div class="card h-100 text-white bg-dark " style="width: 99%;">
+          <img src='/media/{{i.image}}' class="card-img-top" alt="..." height="250px" width="250px">
+          <div class="card-body">
+            <h5 class="card-title">{{i.shop_name}}
+            </h5>
+            <p class="card-text">{{i.details}}
+            <p class="card-text">{{i.pincode}}
+            </p>
+            <a href="/shop/index/{{i.id}}" class="btn btn-primary">Visit shop</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <button class="open-button" onclick="openForm()">Chat Support</button>
+    <div class="chat-popup" id="myForm">
+      <div class="form-container">
+
+	    <iframe src="https://console.dialogflow.com/api-client/demo/embedded/cf7d7d3f-6881-4f1b-a6dc-4038597ecfa3" style="min-width: 350px; width: 100%; min-height: 430px;">
+
+        </iframe>
+
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </div>
+  <!--<iframe src='https://webchat.botframework.com/embed/UpliftBotService?s=gAgIMIXSN60.i4sHN6OWKTLp0jeGz2U2rkTq4kxQUjxZV_WJr8Av_4U'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button> -->
+    </div>
+
+
+  <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+
+    <p>Powered by <a href="#" title="HelpMate.com" class="w3-hover-text-green">VocalforLocal.com</a></p>
+  </footer>
+
+  <script>
+    function popup() {
+      confirm("Thank you for filling the form! Your details have been added to our Data Base successfully! For further verifications our backend team will contact you soon.")
+    }
+
+    function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+document.getElementById("myForm").style.display = "none";
+}
+
+    function visityourshop()
+    {
+        window.location = "sellershop/1";
+    }
+  </script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous">
+
+
+
+  </script>
+  
+</body>
+
+</html>
