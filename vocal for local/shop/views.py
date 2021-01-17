@@ -36,8 +36,8 @@ def index(request, shopid):
 def sellershop(request, shopid):
     #product = Product.objects.filter(shop=shopid)
     allProds = []
-    catprods = Product.objects.values('category', 'id')
-    cats = {item['category'] for item in catprods}
+    catprods = Product.objects.values('category', 'id', 'shop')
+    cats = {item['category'] for item in catprods if item['shop']==shopid}
     for cat in cats:
         prod = Product.objects.filter(category=cat, shop=shopid)
         n = len(prod)
