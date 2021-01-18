@@ -61,3 +61,11 @@ Team_Spectre :
 * Prayas Pal
 * Aparajita Paul 
 
+##ppt link:
+
+https://docs.google.com/presentation/d/12K_si5a3r_34i8Gqk7kc6UX4VfCtuQXrPVDaWT-s2oM/edit?usp=sharing
+
+##video link:
+
+https://youtu.be/8SR2FNE66Ns
+
