@@ -21,6 +21,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', include('register.urls')),
     path('shop/', include('shop.urls')),
-    path('', views.index,name="index")
+    path('', include(('django.contrib.auth.urls')))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

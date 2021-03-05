@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 class Shop(models.Model):
@@ -38,7 +38,7 @@ class Contact(models.Model):
     email = models.CharField(max_length=70, default="")
     phone = models.CharField(max_length=70, default="")
     desc = models.CharField(max_length=500, default="")
-
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -54,12 +54,14 @@ class Orders(models.Model):
     state = models.CharField(max_length=111)
     zip_code = models.CharField(max_length=111)
     phone = models.CharField(max_length=111, default="")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE)
 
 class OrderUpdate(models.Model):
     update_id  = models.AutoField(primary_key=True)
     order_id = models.IntegerField(default="")
     update_desc = models.CharField(max_length=5000)
     timestamp = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.update_desc[0:7] + "..."
